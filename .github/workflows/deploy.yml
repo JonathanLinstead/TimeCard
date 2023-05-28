@@ -1,0 +1,22 @@
+# github actions to deploy timecard to azure
+
+  name: Deploy TimeCard
+
+  on:
+    workflow_dispatch:
+
+  jobs:
+    build:
+        runs-on: ubuntu-latest
+        steps:
+          - uses: actions/checkout@v3
+          - name: Setup .net core
+            uses: actions/setup-dotnet@v3
+            with: 
+              dotnet-version: 7.0.x
+
+          - name: Install dependencies
+            run: dotnet restore
+
+          - name: Build
+            run: dotnet build --configuration Release --no-restore
